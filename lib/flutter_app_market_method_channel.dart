@@ -11,14 +11,20 @@ class MethodChannelFlutterAppMarket extends FlutterAppMarketPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
+
   @override
   Future<void> openMarket(
       {String? schemaUrl,
-        String? packageName,
-        String? marketPackageName}) async {
-    await methodChannel.invokeMethod<void>('openMarket');
+      String? packageName,
+      String? marketPackageName}) async {
+    await methodChannel.invokeMethod<void>('openMarket', {
+      'schemaUrl': schemaUrl,
+      'packageName': packageName,
+      'marketPackageName': marketPackageName,
+    });
   }
 }
