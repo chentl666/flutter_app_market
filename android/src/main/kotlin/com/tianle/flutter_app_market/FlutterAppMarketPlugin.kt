@@ -36,6 +36,15 @@ class FlutterAppMarketPlugin : FlutterPlugin, MethodCallHandler {
                     MarketUtils.tools?.startMarket(mContext, packageName, marketPackageName, schemaUrl)
                 }
             }
+            "isInstalled" -> {
+                val mContext = context
+                val packageName = call.argument<String?>("packageName")
+                if (mContext != null && packageName != null) {
+                    MarketUtils.tools?.isInstalled(mContext, packageName)?.let {
+                        result.success(it)
+                    }
+                }
+            }
             else -> {
                 result.notImplemented()
             }

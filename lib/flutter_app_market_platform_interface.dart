@@ -32,4 +32,8 @@ abstract class FlutterAppMarketPlatform extends PlatformInterface {
     String? packageName,
     String? marketPackageName,
   });
+
+  Future<bool?> isInstalled({
+    String? packageName,
+  });
 }

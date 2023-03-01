@@ -73,7 +73,9 @@ class MarketUtils {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             intent.setPackage(marketPackageName)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            mContext.startActivity(intent)
+            if (intent.resolveActivity(mContext.packageManager) != null) {
+                mContext.startActivity(intent)
+            }
         } catch (anf: ActivityNotFoundException) {
             Log.e("MarketUtils", "要跳转的应用市场不存在!")
         } catch (e: Exception) {
@@ -84,7 +86,7 @@ class MarketUtils {
     /****
      * 检查APP是否安装成功
      */
-    private fun isInstalled(context: Context, packageName: String): Boolean {
+    fun isInstalled(context: Context, packageName: String): Boolean {
         if ("" == packageName || packageName.isEmpty()) {
             return false
         }

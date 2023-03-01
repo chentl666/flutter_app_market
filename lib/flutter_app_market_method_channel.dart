@@ -27,4 +27,10 @@ class MethodChannelFlutterAppMarket extends FlutterAppMarketPlatform {
       'marketPackageName': marketPackageName,
     });
   }
+
+  @override
+  Future<bool?> isInstalled({String? packageName}) async {
+    return await methodChannel
+        .invokeMethod<bool?>('isInstalled', {'packageName': packageName});
+  }
 }
