@@ -8,27 +8,27 @@ class FlutterAppMarket {
   /// 打开应用市场
   Future<void> openMarket({
     String? schemaUrl,
-    String? packageName,
+    String? updateAppPackageName,
     String? marketPackageName,
-    Brand? brand,
+    Brand? marketBrand,
   }) async {
-    String? mPackageName = packageName;
-    if (brand != null) {
-      mPackageName = getPackageName(brand);
+    String? mpn = marketPackageName;
+    if (marketBrand != null) {
+      mpn = getPackageName(marketBrand);
     }
     FlutterAppMarketPlatform.instance.openMarket(
       schemaUrl: schemaUrl,
-      packageName: mPackageName,
-      marketPackageName: marketPackageName,
+      packageName: updateAppPackageName,
+      marketPackageName: mpn,
     );
   }
 
   /// 是否安装应用
   Future<bool?> isInstalled({
-    String? packageName,
+    String? marketPackageName,
     Brand? brand,
   }) async {
-    String? mPackageName = packageName;
+    String? mPackageName = marketPackageName;
     if (brand != null) {
       mPackageName = getPackageName(brand);
     }
