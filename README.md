@@ -9,6 +9,6 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  flutter_app_market: ^0.0.3
+  flutter_app_market: ^0.0.5
 ```
 

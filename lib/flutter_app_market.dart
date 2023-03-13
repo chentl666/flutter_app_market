@@ -25,10 +25,10 @@ class FlutterAppMarket {
 
   /// 是否安装应用
   Future<bool?> isInstalled({
-    String? marketPackageName,
+    String? packageName,
     Brand? brand,
   }) async {
-    String? mPackageName = marketPackageName;
+    String? mPackageName = packageName;
     if (brand != null) {
       mPackageName = getPackageName(brand);
     }

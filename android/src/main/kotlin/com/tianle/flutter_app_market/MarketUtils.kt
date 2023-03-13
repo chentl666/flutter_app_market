@@ -14,15 +14,8 @@ import android.util.Log
 class MarketUtils {
 
     companion object {
-        var tools: MarketUtils? = null
-            get() {
-                if (null == field) {
-                    field = MarketUtils()
-                }
-                return field
-            }
-            private set
         private const val schemaUrl = "market://details?id="
+        private const val TAG = "flutter_app_market"
     }
 
     /***
@@ -38,9 +31,9 @@ class MarketUtils {
                 openMarket(mContext, mPackageName, marketPackageName, schema)
             }
         } catch (anf: ActivityNotFoundException) {
-            Log.e("MarketUtils", "要跳转的应用市场不存在!")
+            Log.e(TAG, "要跳转的应用市场不存在!")
         } catch (e: Exception) {
-            Log.e("MarketUtils", "其他错误：" + e.message)
+            Log.e(TAG, "其他错误：" + e.message)
         }
     }
 
@@ -57,9 +50,9 @@ class MarketUtils {
                 mContext.startActivity(intent)
             }
         } catch (anf: ActivityNotFoundException) {
-            Log.e("MarketUtils", "要跳转的应用市场不存在!")
+            Log.e(TAG, "要跳转的应用市场不存在!")
         } catch (e: Exception) {
-            Log.e("MarketUtils", "其他错误：" + e.message)
+            Log.e(TAG, "其他错误：" + e.message)
         }
     }
 
