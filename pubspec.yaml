@@ -1,6 +1,6 @@
 name: flutter_app_market
 description: 跳转到手机的各大应用市场，Google、华为、小米、oppo、vivo、应用宝等各大主流的应用市场.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/chentl666/flutter_app_market
 
 environment:

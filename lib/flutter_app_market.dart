@@ -26,10 +26,25 @@ class FlutterAppMarket {
   /// 是否安装应用
   Future<bool?> isInstalled({
     String? packageName,
+    Brand? brand,
   }) async {
+    String? mPackageName = packageName;
+    if (brand != null) {
+      mPackageName = getPackageName(brand);
+    }
     return await FlutterAppMarketPlatform.instance.isInstalled(
-      packageName: packageName,
+      packageName: mPackageName,
     );
+  }
+
+  /// 获取 android.os.Build.MODEL
+  Future<String?> getAndroidModel() async {
+    return await FlutterAppMarketPlatform.instance.model();
+  }
+
+  /// 获取 android.os.Build.MANUFACTURER
+  Future<String?> getAndroidManufacturer() async {
+    return await FlutterAppMarketPlatform.instance.manufacturer();
   }
 }
 

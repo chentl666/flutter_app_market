@@ -33,4 +33,14 @@ class MethodChannelFlutterAppMarket extends FlutterAppMarketPlatform {
     return await methodChannel
         .invokeMethod<bool?>('isInstalled', {'packageName': packageName});
   }
+
+  @override
+  Future<String?> model() async {
+    return await methodChannel.invokeMethod<String?>('model');
+  }
+
+  @override
+  Future<String?> manufacturer() async {
+    return await methodChannel.invokeMethod<String?>('manufacturer');
+  }
 }

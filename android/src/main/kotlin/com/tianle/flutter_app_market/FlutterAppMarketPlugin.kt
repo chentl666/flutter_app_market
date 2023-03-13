@@ -45,6 +45,12 @@ class FlutterAppMarketPlugin : FlutterPlugin, MethodCallHandler {
                     }
                 }
             }
+            "model" -> {
+                result.success(android.os.Build.MODEL)
+            }
+            "manufacturer" -> {
+                result.success(android.os.Build.MANUFACTURER)
+            }
             else -> {
                 result.notImplemented()
             }
