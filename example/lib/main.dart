@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_app_market/flutter_app_market.dart';
 
 void main() {
@@ -16,34 +13,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _flutterAppMarketPlugin = FlutterAppMarket();
+  final plugin = FlutterAppMarket();
+  bool? huawei;
+  bool? xiaomi;
+  bool? tencent;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _flutterAppMarketPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
+    plugin.isInstalled(plugin.getPackageName('huawei')).then((res) {
+      setState(() {
+        huawei = res;
+      });
+    });
+    plugin.isInstalled(plugin.getPackageName('xiaomi')).then((res) {
+      setState(() {
+        xiaomi = res;
+      });
+    });
+    plugin.isInstalled(plugin.getPackageName('tencent')).then((res) {
+      setState(() {
+        tencent = res;
+      });
     });
   }
 
@@ -52,10 +43,41 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('打开应用市场Example'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('华为应用市场是否安装:${huawei}'),
+              ElevatedButton(
+                onPressed: () {
+                  plugin.openMarket(
+                      updateAppPackageName: 'com.yhyx.aimeili',
+                      marketPackageName: plugin.getPackageName('huawei'));
+                },
+                child: Text('华为应用市场'),
+              ),
+              Text('小米应用市场是否安装:${xiaomi}'),
+              ElevatedButton(
+                onPressed: () {
+                  plugin.openMarket(
+                      updateAppPackageName: 'com.yhyx.aimeili',
+                      marketPackageName: plugin.getPackageName('xiaomi'));
+                },
+                child: Text('小米应用市场'),
+              ),
+              Text('应用宝是否安装:${tencent}'),
+              ElevatedButton(
+                onPressed: () {
+                  plugin.openMarket(
+                      updateAppPackageName: 'com.yhyx.aimeili',
+                      marketPackageName: plugin.getPackageName('tencent'));
+                },
+                child: Text('应用宝'),
+              ),
+            ],
+          ),
         ),
       ),
     );

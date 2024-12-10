@@ -3,18 +3,9 @@ import 'package:flutter/services.dart';
 
 import 'flutter_app_market_platform_interface.dart';
 
-/// An implementation of [FlutterAppMarketPlatform] that uses method channels.
 class MethodChannelFlutterAppMarket extends FlutterAppMarketPlatform {
-  /// The method channel used to interact with the native platform.
   @visibleForTesting
   final methodChannel = const MethodChannel('com.tianle.flutter_app_market');
-
-  @override
-  Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
 
   @override
   Future<void> openMarket(
