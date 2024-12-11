@@ -14,10 +14,21 @@ class FlutterAppMarket {
     );
   }
 
-  /// 是否安装应用
-  Future<bool?> isInstalled(String? packageName) async {
+  /// 获取APP是否安装
+  /// 1.uri: ios Schemes xxx://com.xx
+  /// 2.uri: android 包名
+  /// 3.在Info.plist文件里,找到LSApplicationQueriesSchemes,添加对应APP的Schemes
+  Future<bool?> isInstalled(String? uri) async {
     return await FlutterAppMarketPlatform.instance.isInstalled(
-      packageName: packageName,
+      uri: uri,
+    );
+  }
+
+  /// 打开其他app
+  /// uri: Schemes xxx://com.xx
+  Future<bool?> openOtherApp(String? uri) async {
+    return await FlutterAppMarketPlatform.instance.openOtherApp(
+      uri: uri,
     );
   }
 

@@ -20,9 +20,9 @@ class MethodChannelFlutterAppMarket extends FlutterAppMarketPlatform {
   }
 
   @override
-  Future<bool?> isInstalled({String? packageName}) async {
+  Future<bool?> isInstalled({String? uri}) async {
     return await methodChannel
-        .invokeMethod<bool?>('isInstalled', {'packageName': packageName});
+        .invokeMethod<bool?>('isInstalled', {'uri': uri});
   }
 
   @override
@@ -33,5 +33,11 @@ class MethodChannelFlutterAppMarket extends FlutterAppMarketPlatform {
   @override
   Future<String?> manufacturer() async {
     return await methodChannel.invokeMethod<String?>('manufacturer');
+  }
+
+  @override
+  Future<bool?> openOtherApp({String? uri}) async {
+    return await methodChannel
+        .invokeMethod<bool?>('openOtherApp', {'uri': uri});
   }
 }

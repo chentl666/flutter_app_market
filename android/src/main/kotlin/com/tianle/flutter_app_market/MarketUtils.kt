@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.util.Log
 
 /**
@@ -56,19 +57,38 @@ class MarketUtils {
         }
     }
 
-    /****
-     * 检查APP是否安装成功
+    /**
+     * 检查APP是否安装
      */
     fun isInstalled(context: Context, packageName: String): Boolean {
         if ("" == packageName || packageName.isEmpty()) {
             return false
         }
         val packageInfo: PackageInfo? = try {
-            context.packageManager.getPackageInfo(packageName, 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                context.packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+            } else {
+                context.packageManager.getPackageInfo(packageName, 0)
+            }
         } catch (e: PackageManager.NameNotFoundException) {
             null
         }
         return packageInfo != null
+    }
+
+    /**
+     * 打开其他app
+     */
+    fun openOtherApp(context: Context, uri: String): Boolean {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+            return true
+        } catch (e: Exception) {
+            e.message?.let { Log.e("openOtherAppError", it) }
+        }
+        return false
     }
 
 }

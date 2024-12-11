@@ -76,6 +76,12 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('应用宝'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  plugin.openOtherApp('weixin://');
+                },
+                child: Text('打开微信'),
+              ),
             ],
           ),
         ),

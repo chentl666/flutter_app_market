@@ -31,21 +31,35 @@ class FlutterAppMarketPlugin : FlutterPlugin, MethodCallHandler {
                     MarketUtils().startMarket(mContext, packageName, marketPackageName, schemaUrl)
                 }
             }
+
             "isInstalled" -> {
                 val mContext = context
-                val packageName = call.argument<String?>("packageName")
+                val packageName = call.argument<String?>("uri")
                 if (mContext != null && packageName != null) {
                     MarketUtils().isInstalled(mContext, packageName).let {
                         result.success(it)
                     }
                 }
             }
+
             "model" -> {
                 result.success(android.os.Build.MODEL)
             }
+
             "manufacturer" -> {
                 result.success(android.os.Build.MANUFACTURER)
             }
+
+            "openOtherApp" -> {
+                context?.let { mContext ->
+                    val uri = call.argument<String?>("uri")
+                    uri?.let {
+                        val status = MarketUtils().openOtherApp(mContext, it)
+                        result.success(status)
+                    }
+                }
+            }
+
             else -> {
                 result.notImplemented()
             }

@@ -23,10 +23,14 @@ abstract class FlutterAppMarketPlatform extends PlatformInterface {
   });
 
   Future<bool?> isInstalled({
-    String? packageName,
+    String? uri,
   });
 
   Future<String?> model();
 
   Future<String?> manufacturer();
+
+  Future<bool?> openOtherApp({
+    String? uri,
+  });
 }
